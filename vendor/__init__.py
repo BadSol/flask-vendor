@@ -1,16 +1,25 @@
 from flask import Flask
-from database import db_session
+from config import Config
+from flask_sqlalchemy import SQLAlchemy
+from models import User
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+
+app.config['SQLALCHEMY_DATABASE_URI'] = Config.DATABASE_URI
+
+db = SQLAlchemy(app)
+session = db.session
 
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     print 'removing db session'
-    db_session.remove()
+    session.remove()
 
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    context = User.query.all()
+    return "Hello World!" + context

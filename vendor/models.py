@@ -1,12 +1,11 @@
-from sqlalchemy import Column, Integer, String
-from vendor.database import Base
+from vendor import db  # ImportError: No module named vendor
 
 
-class User(Base):
+class User(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50), unique=True)
-    email = Column(String(120), unique=True)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+    email = db.Column(db.String(120), unique=True)
 
     def __init__(self, name=None, email=None):
         self.name = name
