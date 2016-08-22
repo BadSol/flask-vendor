@@ -1,4 +1,4 @@
-from flask import Flask, current_app, Blueprint
+from flask import Flask
 from config import Config
 
 
@@ -14,5 +14,5 @@ def create_app():
 
     app.register_blueprint(vendor_views)
 
-    return app, db
+    return app
 
