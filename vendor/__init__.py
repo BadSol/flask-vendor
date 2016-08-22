@@ -1,25 +1,18 @@
-from flask import Flask
+from flask import Flask, current_app, Blueprint
 from config import Config
-from flask_sqlalchemy import SQLAlchemy
-from models import User
 
 
-app = Flask(__name__)
-app.config['DEBUG'] = True
+def create_app():
+    app = Flask(__name__)
+    app.config['DEBUG'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = Config.DATABASE_URI
 
-app.config['SQLALCHEMY_DATABASE_URI'] = Config.DATABASE_URI
+    from vendor.models import db
+    db.init_app(app)
 
-db = SQLAlchemy(app)
-session = db.session
+    from vendor.views import vendor_views
 
+    app.register_blueprint(vendor_views)
 
-@app.teardown_appcontext
-def shutdown_session(exception=None):
-    print 'removing db session'
-    session.remove()
+    return app, db
 
-
-@app.route("/")
-def hello():
-    context = User.query.all()
-    return "Hello World!" + context

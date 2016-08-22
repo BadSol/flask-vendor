@@ -1,4 +1,6 @@
-from vendor import db  # ImportError: No module named vendor
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 
 class User(db.Model):
@@ -12,4 +14,4 @@ class User(db.Model):
         self.email = email
 
     def __repr__(self):
-        return '<User %r>' % (self.name)
+        return '<User {}>'.format(self.name)
