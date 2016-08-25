@@ -1,11 +1,10 @@
 from flask import Flask
-from config import Config
+# from config import Config
 
 
-def create_app():
+def create_app(config='vendor.config.DevelopmentConfig'):
     app = Flask(__name__)
-    app.config['DEBUG'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = Config.DATABASE_URI
+    app.config.from_object(config)
 
     from vendor.models import db
     db.init_app(app)
