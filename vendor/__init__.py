@@ -6,8 +6,9 @@ def create_app(config='vendor.config.DevelopmentConfig'):
     app = Flask(__name__)
     app.config.from_object(config)
 
-    from vendor.models import db
+    from vendor.models import db, bcrypt
     db.init_app(app)
+    bcrypt.init_app(app)
 
     from vendor.views import vendor_views
 

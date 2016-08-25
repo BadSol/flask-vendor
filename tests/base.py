@@ -1,4 +1,4 @@
-from flask.ext.testing import TestCase
+from flask_testing import TestCase
 
 from vendor import create_app
 from vendor.models import db, User
@@ -13,7 +13,7 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         db.create_all()
-        db.session.add(User("admin", "ad@min.com"))
+        db.session.add(User("admin", "ad@min.com", "password"))
         db.session.commit()
 
     def tearDown(self):
