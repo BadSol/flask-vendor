@@ -10,7 +10,7 @@ class BaseConfig(object):
     DEBUG = False
     SECRET_KEY = secrets["secret_key"]
 
-    DATABASE_URI = 'postgresql://{}:{}@localhost/{}'.format(secrets["db_user"],
+    SQLALCHEMY_DATABASE_URI = 'postgresql://{}:{}@localhost/{}'.format(secrets["db_user"],
                                                             secrets["db_password"],
                                                             secrets["db_name"])
 
@@ -18,7 +18,7 @@ class BaseConfig(object):
 class TestConfig(BaseConfig):
     DEBUG = True
     TESTING = True
-    DATABASE_URI = 'sqlite:///:memory:'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
 
 
 class DevelopmentConfig(BaseConfig):
