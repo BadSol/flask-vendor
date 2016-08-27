@@ -13,4 +13,10 @@ def index():
     # user = User.query.all()  # TypeError: 'BaseQuery' object is not callable
     user = db.session.query(User).first()
 
-    return render_template('index.html', user=user)
+    return render_template('base.html', user=user)
+
+
+@vendor_views.route('login')
+def login():
+    return render_template('login.html')
+
