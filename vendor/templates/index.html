@@ -1,7 +1,13 @@
-<!doctype html>
-<title>Hello from Flask</title>
+{% extends "base.html" %}
+
+{% block content %}
+
 {% if user %}
-  <h1>context: {{ user }}</h1>
+  <h2>context: {{ user }}</h2>
 {% else %}
-  <h1>Hello, World!</h1>
+  <h2>Hello, World!</h2>
 {% endif %}
+
+<a href="http://192.168.33.33:8000/login">login page</a>
+
+{% endblock %}
