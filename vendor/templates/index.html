@@ -2,12 +2,16 @@
 
 {% block content %}
 
+{% if current_user.is_authenticated %}
+  Hi {{ current_user.name }}!
+{% endif %}
+
 {% if user %}
   <h2>context: {{ user }}</h2>
 {% else %}
   <h2>Hello, World!</h2>
 {% endif %}
 
-<a href="http://192.168.33.33:8000/login">login page</a>
+<a href='http://192.168.33.33:8000/login'>login page</a>
 
 {% endblock %}

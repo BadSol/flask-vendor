@@ -4,15 +4,27 @@
 
 <h2><span class="glyphicon glyphicon-user"></span> Please login</h2>
 
-<form action="" method="post">
-    <input type="text" placeholder="Email" name="email" value="{{
-            request.form.email }}">
-    <br>
-    <input type="password" placeholder="Password" name="password" value="{{
-            request.form.password }}">
-    <input class="btn btn-xs btn-primary" type="submit" value="Login">
+<form id="loginForm" class="form-horizontal" action="" method="post">
+    <div class="form-group">
+        <label class="col-xs-3 control-label">User email</label>
+
+        <input type="email" placeholder="Email" name="email" value="{{request.form.email }}" required >
+    </div>
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Password</label>
+
+        <input type="password" placeholder="Password" name="password" value="{{
+            request.form.password }}" required>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Login</button>
+        </div>
+    </div>
 </form>
 
+{% if error %}
+<span class="label label-warning">{{error}}</span>
+{% endif %}
 
 {% endblock %}
 

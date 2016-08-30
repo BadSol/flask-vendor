@@ -11,6 +11,7 @@ def create_app(cfg='vendor.config.DevelopmentConfig'):
     bcrypt.init_app(app)
 
     from vendor.views import vendor_views, login_manager
+    login_manager.login_view = "vendor.login"
     login_manager.init_app(app)
 
     app.register_blueprint(vendor_views)

@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from vendor.models import User, db, bcrypt
-from flask_login import LoginManager
+from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 
 login_manager = LoginManager()
 
@@ -8,6 +8,7 @@ vendor_views = Blueprint('vendor', __name__, url_prefix='/')
 
 
 @vendor_views.route('/')
+@login_required
 def index():
     # context = db.session.query(User).all()  # both doesn't work TypeError: 'User' object is not callable
     # user = User.query.all()  # TypeError: 'BaseQuery' object is not callable
@@ -20,19 +21,32 @@ def index():
 def login():
     if request.method == 'POST':
 
-        user = load_user(request.form['email'])
-        if validate_login(user, request.form['password']):
-            print 'User {} logged in!'.format(user.name)
-        else:
-            redirect(url_for('vendor.login'))
+        user_obj = User.query.filter(User.email == request.form['email'].lower()).one_or_none()
+        user = load_user(user_obj.get_id())  # todo: refactor this, load_user needs unicode id of object as argument
 
-    else:
-        return render_template('login.html')
+        if user is not None and validate_login(user, request.form['password']):  # Validate user:
+            login_user(user)
+            # flash('Logged in successfully')  # todo: learn how flash works
+            return redirect(request.args.get('next') or url_for('vendor.index'))  # todo: check if next page works
+        # Warning: You MUST validate the value of the next parameter.
+        # If you do not, your application will be vulnerable to open redirects.
+
+        else:
+            return render_template('login.html', error='User doesn\'t exist, or wrong password')
+
+    return render_template('login.html')
+
+
+@vendor_views.route('logout')
+def logout():
+    logout_user()
+    return redirect(url_for('vendor.index'))
+
 
 
 @login_manager.user_loader
-def load_user(user_email):
-    return User.query.filter(User.email == user_email).one_or_none()
+def load_user(user_id):
+    return User.query.filter(User.id == user_id).one_or_none()
 
 
 def validate_login(user, password):
