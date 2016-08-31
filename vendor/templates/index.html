@@ -12,6 +12,6 @@
   <h2>Hello, World!</h2>
 {% endif %}
 
-<a href='http://192.168.33.33:8000/login'>login page</a>
+<a href="{{ url_for('user.login') }}">login page</a>
 
 {% endblock %}

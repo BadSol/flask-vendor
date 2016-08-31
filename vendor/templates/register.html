@@ -1,15 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h3>Register form:</h3>
 
-<h3><span class="glyphicon glyphicon-user"></span> Please login</h3>
+<form id="registerForm" class="form-horizontal" action="" method="post">
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Name</label>
 
-<form id="loginForm" class="form-horizontal" action="" method="post">
+        <input type="text" placeholder="Name" name="name" value="{{request.form.name }}" required >
+    </div>
     <div class="form-group">
         <label class="col-xs-3 control-label">User email</label>
+        {% if error %}
+        <label class="col-xs-2 alert-danger">{{error}}</label>
+        {% endif %}
 
         <input type="email" placeholder="Email" name="email" value="{{request.form.email }}" required >
     </div>
+
     <div class="form-group">
         <label class="col-xs-3 control-label">Password</label>
 
@@ -17,17 +25,8 @@
             request.form.password }}" required>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-default">Login</button> or
-            <a href="{{ url_for('user.register') }}"><button type="button" class="btn btn-default" >Sign in</button></a>
+            <button type="submit" class="btn btn-default">Register</button>
         </div>
     </div>
 </form>
-
-{% if error %}
-<span class="label label-warning">{{error}}</span>
-{% endif %}
-
 {% endblock %}
-
-
-

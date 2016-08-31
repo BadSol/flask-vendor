@@ -18,18 +18,16 @@
   <![endif]-->
 </head>
 <body>
-
 {% if current_user.is_authenticated %}
 
-<form href="{{ url_for('vendor.logout') }}">
+<form>
 <p>
-  <button type="button"  class="btn btn-default btn-sm" >
+  <a href="{{ url_for('user.logout') }}"><button type="button"  class="btn btn-default btn-sm" >
 
   <span class="glyphicon glyphicon-log-out"></span> Log out
-</button>
+</button></a>
 </p>
 </form>
-<li><a href="{{ url_for('vendor.logout') }}">Logout</a></li>
 {% endif %}
 
 <div class="container">
