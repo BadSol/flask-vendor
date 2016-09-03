@@ -6,6 +6,9 @@ from vendor.models import db, User
 
 class BaseTestCase(TestCase):
     """A base test case."""
+    basic_user_name = 'admin'
+    basic_user_email = 'ad@min.com'
+    basic_user_password = 'password'
 
     def create_app(self):
         app = create_app('vendor.config.TestConfig')
@@ -13,7 +16,7 @@ class BaseTestCase(TestCase):
 
     def setUp(self):
         db.create_all()
-        db.session.add(User("admin", "ad@min.com", "password"))
+        db.session.add(User(self.basic_user_name, self.basic_user_email, self.basic_user_password))
         db.session.commit()
 
     def tearDown(self):
