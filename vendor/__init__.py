@@ -3,6 +3,12 @@ from config import BaseConfig
 
 
 def create_app(cfg='vendor.config.DevelopmentConfig'):
+    """
+    Creates app instance which allows benefits of using app factories.
+
+    :param cfg: Location of config file
+    :return: app object
+    """
     app = Flask(__name__)
     app.config.from_object(cfg)
 
@@ -22,12 +28,3 @@ def create_app(cfg='vendor.config.DevelopmentConfig'):
     from vendor.models import User
 
     return app
-
-
-def drop_db():
-    app = create_app('vendor.config.DevelopmentConfig')
-
-    from flask_sqlalchemy import SQLAlchemy
-    db = SQLAlchemy(app)
-    db.drop_all()
-    db.create_all()

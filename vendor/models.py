@@ -18,6 +18,7 @@ class User(db.Model):
         self.email = email.lower()
         self.password = bcrypt.generate_password_hash(password)
 
+    # Methods required by Flask-Login
     def is_authenticated(self):
         return True
 

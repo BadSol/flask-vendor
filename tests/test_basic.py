@@ -3,11 +3,13 @@ import unittest
 from base import BaseTestCase
 from flask import url_for
 from vendor.models import User, bcrypt
-from vendor.user.views import check_if_user_exist
 from flask_login import current_user
 
 
 class FlaskTestCase(BaseTestCase):
+    """
+    testing case ensuring that test environment is set up correctly, and basic functions works
+    """
     def test_set_up(self):
         user = User.query.first()
         self.assertEqual(user.name, 'admin')
@@ -20,6 +22,9 @@ class FlaskTestCase(BaseTestCase):
 
 
 class ViewTestCase(BaseTestCase):
+    """
+    Basic case of view tests
+    """
     # test index view
     def test_index(self):
         response = self.client.get(url_for('vendor.index'), content_type='html/text', follow_redirects=True)
