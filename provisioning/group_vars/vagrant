@@ -1,0 +1,9 @@
+working_dir: /vagrant
+
+app_debug: True
+app_ip: 127.0.0.1
+app_port: 8000
+
+vagrant_ip: 192.168.33.17
+
+app_session_cookie_domain: "'localhost'"

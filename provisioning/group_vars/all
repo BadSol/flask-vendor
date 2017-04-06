@@ -1,0 +1,8 @@
+venv_path: "./venv"
+
+db_dumps_dir: db_backups
+
+db_main_name: flask_db
+db_main_user: myprojectdbuser
+db_main_pass: myprojectdbpassword
+db_main_dump: db_main.sql

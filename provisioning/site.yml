@@ -1,0 +1,10 @@
+- name: Apply common configuration to all nodes
+  hosts: all
+  roles:
+    - packages
+#    - db
+
+- name: Prepare developers environment
+  hosts: vagrant
+  roles:
+    - dev

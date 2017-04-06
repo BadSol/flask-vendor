@@ -1,0 +1,19 @@
+- name: Update apt
+  become: true
+  apt: update_cache=yes
+
+- name: Install dev tools
+  become: true
+  apt: pkg={{ item }}
+  with_items:
+    - htop
+    - zsh
+    - tmux
+    - mc
+    - ruby
+    - ruby-dev
+
+- name: Add 'cd /vagrant' to .bashrc
+  lineinfile:
+    dest: ~/.bashrc
+    line: "cd {{ working_dir }}"

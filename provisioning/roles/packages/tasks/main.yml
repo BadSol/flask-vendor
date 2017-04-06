@@ -1,0 +1,24 @@
+---
+- name: Update en_US.UTF-8 locale
+  become: yes
+  locale_gen: name=en_US.UTF-8 state=present
+
+- name: Set locale en_US.UTF-8
+  become: yes
+  command: update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+
+- name: Update apt
+  become: true
+  apt: update_cache=yes
+
+- name: Install aptitude
+  become: yes
+  apt: name=aptitude
+
+- name: Upgrade packages
+  become: yes
+  apt: upgrade=full
+
+- include: apt_packages.yml
+
+- include: pip_packages.yml

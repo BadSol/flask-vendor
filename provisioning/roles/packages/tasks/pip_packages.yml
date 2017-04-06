@@ -1,0 +1,18 @@
+---
+- name: Install pip packages
+  become: yes
+  pip: name={{ item }} state=latest executable=pip2
+  with_items:
+    - virtualenv
+    - pip
+
+- name: Create virtualenv
+  pip:
+    name: pip
+    virtualenv: "{{ venv_path }}"
+    virtualenv_python: python2
+
+- name: Install python project
+  pip:
+    requirements: "{{ working_dir }}/requirements"
+    executable: "{{ venv_path }}/bin/pip"
